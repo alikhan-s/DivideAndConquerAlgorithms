@@ -13,18 +13,19 @@ public class ArrayUtils {
         arr[j] = tmp;
     }
 
-    // Partition (Lomuto scheme for simplicity)
-    public static int partition(int[] arr, int low, int high) {
-        int pivot = arr[high];
-        int i = low;
-        for (int j = low; j < high; j++) {
-            if (arr[j] <= pivot) {
-                swap(arr, i, j);
-                i++;
+    // Partition with explicit pivot index
+    public static int partition(int[] arr, int left, int right, int pivotIndex) {
+        int pivotValue = arr[pivotIndex];
+        swap(arr, pivotIndex, right); // move pivot to end
+        int storeIndex = left;
+        for (int i = left; i < right; i++) {
+            if (arr[i] < pivotValue) {
+                swap(arr, storeIndex, i);
+                storeIndex++;
             }
         }
-        swap(arr, i, high);
-        return i;
+        swap(arr, storeIndex, right); // move pivot to final place
+        return storeIndex;
     }
 
     // Fisher-Yates shuffle
